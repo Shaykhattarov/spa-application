@@ -6,5 +6,13 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.115.8",
+    "pydantic>=2.10.6",
     "uvicorn[standard]>=0.34.0",
+]
+
+
+[tool.uv]
+dev-dependencies = [
+    "mypy>=1.15.0",
+    "ruff>=0.9.7",
 ]
