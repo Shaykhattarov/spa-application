@@ -1,7 +1,15 @@
-from fastapi import FastAPI
-from routing.books import router as books_routing
+from fastapi import APIRouter
+from app.api.routing import test
+from app.api.routing import categories
+from app.api.routing import units
+
+from app.core.config import settings
 
 
-app = FastAPI()
+api_router = APIRouter()
+api_router.include_router(test.router)
+api_router.include_router(categories.router)
+api_router.include_router(units.router)
 
-app.include_router(books_routing)
+# if settings.ENVIRONMENT == "local":
+#    api_router.include_router(test.router)
