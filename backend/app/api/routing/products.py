@@ -7,5 +7,11 @@ router = APIRouter(prefix='/products', tags=['product'])
 
 
 
-@router.post('/', response_model=Product)
-def create(): ...
+@router.post(
+        '/', 
+        response_model=Product
+)
+def create(
+
+):
+    ...

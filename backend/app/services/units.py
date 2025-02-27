@@ -2,7 +2,7 @@ from fastapi import Depends
 from typing import List
 
 from app.repositories.units import ProductUnitRepository
-from app.schemas.units import ProductUnitScheme, ProductUnitPostRequestScheme
+from app.schemas.units import ProductUnitScheme
 from app.models.units import ProductUnit
 
 class ProductUnitService:
@@ -13,7 +13,9 @@ class ProductUnitService:
         self.productUnitRepository = productUnitRepository
 
     def create(self, unit: ProductUnitScheme) -> ProductUnit:
-        return self.productUnitRepository.create(ProductUnit(name=unit.name))
+        return self.productUnitRepository.create(
+            ProductUnit(name=unit.name, abbreviation=unit.abbreviation)
+        )
     
     def get(self, id: int) -> ProductUnit:
         return self.productUnitRepository.get(
