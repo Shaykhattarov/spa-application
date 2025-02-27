@@ -1,7 +1,8 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, Query, status
+from starlette.responses import Response
 
-from app.schemas.categories import ProductCategoryPostRequestScheme
+from app.schemas.categories import ProductCategoryScheme
 from app.services.categories import ProductCategoryService
 
 
@@ -31,16 +32,15 @@ def page(
     return productCategoryService.page(pageSize, startIndex)
 
 
-
 @router.post(
     '/', 
-    response_model=ProductCategoryPostRequestScheme,
-    status_code=status.HTTP_201_CREATED
+    response_model=ProductCategoryScheme,
+    status_code=status.HTTP_201_CREATED,
     )
 def create(
-    productCategory: ProductCategoryPostRequestScheme,
+    productCategory: ProductCategoryScheme,
     productCategoryService: Annotated[ProductCategoryService, Depends()]
-):
+) -> Response:
     return productCategoryService.create(productCategory)
 
 

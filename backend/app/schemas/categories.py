@@ -1,9 +1,11 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import Annotated
 
 
-class ProductCategoryPostRequestScheme(BaseModel):
-    name: str
+class ProductCategoryScheme(BaseModel):
+    name: Annotated[
+        str, 
+        Field(min_length=2, max_length=60, description="Название категории должно быть от 2 до 60 символов")
+    ]
 
 
-class ProductCategoryScheme(ProductCategoryPostRequestScheme):
-    id: int
