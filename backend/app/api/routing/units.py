@@ -1,44 +1,45 @@
-from typing import Annotated
+from typing import Annotated, List
 from fastapi import APIRouter, Depends, status
 
-from app.schemas.units import ProductUnitPostRequestScheme
+from app.schemas.units import ProductUnitScheme
 from app.services.units import ProductUnitService
 
 
 router = APIRouter(prefix="/products/units", tags=["unit"])
 
 
-@router.get(
-        "/{id}",
-        status_code=status.HTTP_200_OK,
-)
-def get( 
-    id: int, 
-    productUnitService: Annotated[ProductUnitService, Depends()]
-):
-    return productUnitService.get(id)
-
-
-@router.get(
-        "/", 
-        status_code=status.HTTP_200_OK
-)
-def page(
-    pageSize: int,
-    startIndex: int,
-    productUnitService: Annotated[ProductUnitService, Depends()]
-):
-    return productUnitService.page(pageSize, startIndex)
-
-
 
 @router.post(
-    '/', 
-    response_model=ProductUnitPostRequestScheme,
+    "/",
+    response_model=ProductUnitScheme,
     status_code=status.HTTP_201_CREATED
-    )
-def create(
-    productUnit: ProductUnitPostRequestScheme,
+)
+def create_unit(
+    productUnitScheme: ProductUnitScheme,
     productUnitService: Annotated[ProductUnitService, Depends()]
 ):
-    return productUnitService.create(productUnit)
+    return productUnitService.create(productUnitScheme)
+
+
+@router.get(
+    "/",
+    response_model=List[ProductUnitScheme],
+    status_code=status.HTTP_200_OK
+)
+def read_units(
+    productUnitService: Annotated[ProductUnitService, Depends()],
+    skip: int = 0,
+    limit: int = 100,
+):
+    return productUnitService.page(skip, limit)
+
+
+@router.get(
+    "/{id}",
+    status_code=status.HTTP_200_OK
+)
+def get_unit(
+    id: int,
+    productCategoryService: Annotated[ProductUnitService, Depends()]
+):
+    return productCategoryService.get(id)

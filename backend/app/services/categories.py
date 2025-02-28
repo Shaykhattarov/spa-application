@@ -1,6 +1,7 @@
 from fastapi import Depends, status
+from fastapi.encoders import jsonable_encoder
 from typing import Optional, List
-from starlette.responses import Response
+from starlette.responses import Response, JSONResponse
 
 from app.models.categories import ProductCategory
 from app.repositories.categories import ProductCategoryRepository
@@ -15,8 +16,8 @@ class ProductCategoryService:
     def __init__(self, productCategoryRepository: ProductCategoryRepository = Depends()) -> None:
         self.productCategoryRepository = productCategoryRepository
 
-    def create(self, category: ProductCategoryScheme) -> Response:
-        new_obj: ProductCategory | None = self.productCategoryRepository.create(ProductCategory(name=category.name))
+    def create(self, productCategoryScheme: ProductCategoryScheme) -> Response:
+        new_obj: ProductCategory | None = self.productCategoryRepository.create(ProductCategory(name=productCategoryScheme.name))
         if new_obj is not None:
             return Response(
                 status_code=status.HTTP_201_CREATED, 
@@ -31,16 +32,32 @@ class ProductCategoryService:
 
 
     def get(self, id: int) -> ProductCategory:
-        return self.productCategoryRepository.get(
+        response = self.productCategoryRepository.get(
             ProductCategory(id=id)
         )
+        if response is None:
+            return Response(
+                status_code=status.HTTP_404_NOT_FOUND
+            )
+        else:
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content=jsonable_encoder(response)
+            )
+    
     
     def page(
             self, 
-            pageSize: int = 25,
-            startIndex: int = 0,
+            skip: int,
+            limit: int
     ) -> List[ProductCategory]:
-        return self.productCategoryRepository.page( 
-            pageSize, 
-            startIndex
+        response: List[ProductCategory] = self.productCategoryRepository.page(skip, limit)
+        content = {
+            "skip": skip,
+            "limit": limit,
+            "count": len(response),
+            "data": response
+        }
+        return JSONResponse(
+            content=jsonable_encoder(content)
         )

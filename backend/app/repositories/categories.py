@@ -26,10 +26,8 @@ class ProductCategoryRepository:
     def get(self, product_category: ProductCategory) -> ProductCategory:
         return self.session.get(ProductCategory, product_category.id)
     
-    def page(self, pageSize: int, startIndex: int) -> List[ProductCategory]:
-        # offset_min = pageSize * startIndex
-        # offset_max = (startIndex + 1) * pageSize
-        statement = select(ProductCategory).offset(startIndex).limit(pageSize)
+    def page(self, skip: int, limit: int) -> List[ProductCategory]:
+        statement = select(ProductCategory).offset(skip).limit(limit)
         return self.session.exec(statement).all()
 
 
