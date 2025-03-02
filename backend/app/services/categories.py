@@ -1,6 +1,6 @@
 from fastapi import Depends, status
 from fastapi.encoders import jsonable_encoder
-from typing import Optional, List
+from typing import List
 from starlette.responses import Response, JSONResponse
 
 from app.models.categories import ProductCategory
