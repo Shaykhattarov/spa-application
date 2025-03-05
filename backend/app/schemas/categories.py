@@ -9,3 +9,6 @@ class ProductCategoryScheme(BaseModel):
     ]
 
 
+class ProductCategoryUpdateScheme(ProductCategoryScheme):
+    id: int
+

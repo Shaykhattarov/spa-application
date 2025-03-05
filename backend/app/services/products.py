@@ -1,10 +1,10 @@
-from typing import List
+from typing import List, Optional
 from fastapi import Depends, status
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import Response, JSONResponse
 
 from app.models.products import Product
-from app.schemas.products import ProductScheme
+from app.schemas.products import ProductScheme, ProductUpdateScheme
 from app.repositories.products import ProductRepository
 
 
@@ -16,12 +16,13 @@ class ProductService:
         self.productRepository = productRepository
 
     def create(self, productScheme: ProductScheme) -> Response:
-        response: Product | None = self.productRepository.create(
+        response: Optional[Product] = self.productRepository.create(
             Product(
-                productScheme.name,
-                productScheme.category_id,
-                productScheme.unit_id,
-                productScheme.retail_price
+                name=productScheme.name,
+                category_id=productScheme.category_id,
+                unit_id=productScheme.unit_id,
+                value=productScheme.value,
+                retail_price=productScheme.retail_price
             )
         )
 
@@ -31,7 +32,7 @@ class ProductService:
             )
     
         return Response(
-            status_code=status.HTTP_200_OK,
+            status_code=status.HTTP_201_CREATED,
             headers={
                 "location": f"/{Product.__tablename__}/{response.id}" 
             }
@@ -68,6 +69,31 @@ class ProductService:
             content=jsonable_encoder(content)
         )
 
-    def patch(self): ...
+    def put(self, productScheme: ProductUpdateScheme) -> Response:
+        response: Optional[Product] = self.productRepository.put(
+            Product(
+                id=productScheme.id,
+                name=productScheme.name,
+                category_id=productScheme.category_id,
+                unit_id=productScheme.unit_id,
+                value=productScheme.value,
+                retail_price=productScheme.retail_price
+            )
+        )
 
-    def delete(self): ...
+        if response is None:
+            return Response(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        else:
+            return Response(
+                status_code=status.HTTP_204_NO_CONTENT
+            )
+        
+
+    def delete(self, id: int):
+        response: None = self.productRepository.delete(id)
+
+        return Response(
+            status_code=status.HTTP_204_NO_CONTENT
+        )

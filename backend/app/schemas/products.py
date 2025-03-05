@@ -14,12 +14,26 @@ class ProductScheme(BaseModel):
     ]
     category_id: int
     unit_id: int
+
+    value: Annotated[Decimal, Field(
+        default=0,
+        max_digits=7, 
+        decimal_places=3,
+        description="Количество товаров должно быть числом десятичным числом больше 0"
+    )]
+
     retail_price: Annotated[
         Decimal, 
         Field(
             default=0,
             max_digits=7,
+            decimal_places=2,
             description="Розничная цена товара должна быть длиною до 7 цифр"
         )
     ]
+
+
+class ProductUpdateScheme(ProductScheme):
+    id: int
+
 

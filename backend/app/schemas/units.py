@@ -20,3 +20,7 @@ class ProductUnitScheme(BaseModel):
             description="Аббревиатура ед. измерения должна быть от 2 до 10 символов"
         )
     ]
+
+
+class ProductUnitUpdateScheme(ProductUnitScheme):
+    id: int

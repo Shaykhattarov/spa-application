@@ -3,7 +3,7 @@ from typing import Annotated, List
 from fastapi import APIRouter, Depends, status
 from starlette.responses import Response, JSONResponse
 
-from app.schemas.products import ProductScheme
+from app.schemas.products import ProductScheme, ProductUpdateScheme
 from app.services.products import ProductService
 
 
@@ -31,11 +31,11 @@ def create_product(
     status_code=status.HTTP_200_OK
 )
 def read_products(
-    productCategoryService: Annotated[ProductService, Depends()],
+    productService: Annotated[ProductService, Depends()],
     skip: int = 0,
     limit: int = 100,
 ):
-    return productCategoryService.page(skip, limit)
+    return productService.page(skip, limit)
 
 
 
@@ -43,8 +43,29 @@ def read_products(
     "/{id}",
     status_code=status.HTTP_200_OK
 )
-def get_category(
+def get_product(
     id: int,
-    productCategoryService: Annotated[ProductService, Depends()]
+    productService: Annotated[ProductService, Depends()]
 ):
-    return productCategoryService.get(id)
+    return productService.get(id)
+
+
+@router.put(
+    "/{id}",
+    response_model=ProductUpdateScheme,
+)
+def put_product(
+    productScheme: ProductUpdateScheme,
+    productService: Annotated[ProductService, Depends()]
+):
+    return productService.put(productScheme)
+
+
+@router.delete(
+    "/{id}"
+)
+def delete_product(
+    id: int,
+    productService: Annotated[ProductService, Depends()]
+):
+    return productService.delete(id)
