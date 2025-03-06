@@ -5,7 +5,7 @@ from .suppliers import Supplier
 from .supplies import Supply
 from .supply_items import SupplyItem
 from .supply_surcharges import SupplySurcharge
-from .adresses import Addresses
+from .addresses import Addresses
 from .stores import Store
 from .store_schedules import StoreSchedule
 from .employees import Employee

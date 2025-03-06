@@ -1,28 +1,29 @@
-from typing import List, Optional
 from fastapi import Depends, status
+from typing import Annotated, Optional, List
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import Response, JSONResponse
 
-from app.models.products import Product
-from app.schemas.products import ProductScheme, ProductUpdateScheme
-from app.repositories.products import ProductRepository
+from app.models.supplies import Supply
+from app.repositories.supplies import SupplyRepository
+from app.schemas.supplies import SupplyScheme, SupplyUpdateScheme
 
 
-class ProductService:
+
+
+class SupplyService:
+
+    repository: SupplyRepository
+
+    def __init__(self, repo: Annotated[SupplyRepository, Depends()]):
+        self.repository = repo
     
-    productRepository: ProductRepository
-
-    def __init__(self, productRepository: ProductRepository = Depends()):
-        self.productRepository = productRepository
-
-    def create(self, productScheme: ProductScheme) -> Response:
-        response: Optional[Product] = self.productRepository.create(
-            Product(
-                name=productScheme.name,
-                category_id=productScheme.category_id,
-                unit_id=productScheme.unit_id,
-                value=productScheme.value,
-                retail_price=productScheme.retail_price
+    def create(self, supplyScheme: SupplyScheme) -> Response:
+        response: Optional[Supply] = self.repository.create(
+            Supply(
+                date=supplyScheme.date,
+                store_id=supplyScheme.store_id,
+                supplier_id=supplyScheme.supplier_id,
+                total_amount=supplyScheme.total_amount,
             )
         )
 
@@ -34,14 +35,13 @@ class ProductService:
         return Response(
             status_code=status.HTTP_201_CREATED,
             headers={
-                "location": f"/{Product.__tablename__}/{response.id}" 
+                "location": f"/{Supply.__tablename__}/{response.id}" 
             }
         )
-        
-
+    
     def get(self, id: int) -> Response | JSONResponse:
-        response = self.productRepository.get(
-            Product(id=id)
+        response = self.repository.get(
+            Supply(id=id)
         )
         if response is None:
             return Response(
@@ -58,7 +58,7 @@ class ProductService:
             skip: int,
             limit: int
     ) -> JSONResponse:
-        response: List[Product] = self.productRepository.page(skip, limit)
+        response: List[Supply] = self.repository.page(skip, limit)
         content = {
             "skip": skip,
             "limit": limit,
@@ -69,15 +69,14 @@ class ProductService:
             content=jsonable_encoder(content)
         )
 
-    def put(self, productScheme: ProductUpdateScheme) -> Response:
-        response: Optional[Product] = self.productRepository.put(
-            Product(
-                id=productScheme.id,
-                name=productScheme.name,
-                category_id=productScheme.category_id,
-                unit_id=productScheme.unit_id,
-                value=productScheme.value,
-                retail_price=productScheme.retail_price
+    def put(self, supplyScheme: SupplyUpdateScheme) -> Response:
+        response: Optional[Supply] = self.repository.put(
+            Supply(
+                id=supplyScheme.id,
+                date=supplyScheme.date,
+                store_id=supplyScheme.store_id,
+                supplier_id=supplyScheme.supplier_id,
+                total_amount=supplyScheme.total_amount,
             )
         )
 
@@ -92,8 +91,10 @@ class ProductService:
         
 
     def delete(self, id: int):
-        self.productRepository.delete(id)
+        self.repository.delete(id)
 
         return Response(
             status_code=status.HTTP_204_NO_CONTENT
         )
+    
+

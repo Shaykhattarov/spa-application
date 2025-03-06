@@ -49,3 +49,10 @@ class SupplierRepository:
         
         self.session.refresh(old_supplier)
         return old_supplier
+    
+    def delete(self, id: int):
+        statement = select(Supplier).where(Supplier.id == id)
+        supplier: Optional[Supplier] = self.session.exec(statement).one()
+        self.session.delete(supplier)
+        self.session.commit()
+        return None
