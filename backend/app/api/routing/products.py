@@ -8,7 +8,7 @@ from app.services.products import ProductService
 
 
 
-router = APIRouter(prefix='/products', tags=['product'])
+router = APIRouter(prefix='/products', tags=['Product'])
 
 
 
