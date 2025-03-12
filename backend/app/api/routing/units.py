@@ -5,7 +5,7 @@ from app.schemas.units import ProductUnitScheme
 from app.services.units import ProductUnitService
 
 
-router = APIRouter(prefix="/products/units", tags=["unit"])
+router = APIRouter(prefix="/products/units", tags=["Unit"])
 
 
 

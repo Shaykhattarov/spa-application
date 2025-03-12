@@ -8,7 +8,7 @@ from app.services.store_schedules import StoreScheduleService
 
 
 
-router = APIRouter(prefix='/store_schedules', tags=['Store Schedule'])
+router = APIRouter(prefix='/stores/schedules', tags=['Store Schedule'])
 
 
 

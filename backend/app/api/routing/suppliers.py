@@ -8,7 +8,7 @@ from app.schemas.suppliers import SupplierScheme, SupplierUpdateScheme
 
 
 
-router = APIRouter(prefix="/suppliers", tags=['supplier'])
+router = APIRouter(prefix="/suppliers", tags=['Supplier'])
 
 
 

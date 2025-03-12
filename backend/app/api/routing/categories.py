@@ -5,7 +5,7 @@ from app.schemas.categories import ProductCategoryScheme
 from app.services.categories import ProductCategoryService
 
 
-router = APIRouter(prefix="/products/categories", tags=["category"])
+router = APIRouter(prefix="/products/categories", tags=["Category"])
 
 
 

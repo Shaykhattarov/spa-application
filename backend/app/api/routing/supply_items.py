@@ -8,7 +8,7 @@ from app.schemas.supply_items import SupplyItemScheme, SupplyItemUpdateScheme
 
 
 
-router = APIRouter(prefix="/supply_items", tags=["supply_item"])
+router = APIRouter(prefix="/supplies/items", tags=["Supply Item"])
 
 
 @router.post(

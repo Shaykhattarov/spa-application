@@ -5,7 +5,7 @@ from app.services.supply_surcharges import SupplySurchargeService
 from app.schemas.supply_surcharges import SupplySurchargeScheme, SupplySurchargeUpdateScheme
 
 
-router = APIRouter(prefix="/supply_surcharges", tags=["supply_surcharge"])
+router = APIRouter(prefix="/supplies/surcharges", tags=["Supply Surcharge"])
 
 
 @router.post(

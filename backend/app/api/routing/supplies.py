@@ -9,7 +9,7 @@ from app.schemas.supplies import SupplyScheme, SupplyUpdateScheme
 
 
 
-router = APIRouter(prefix='/supplies', tags=['supply'])
+router = APIRouter(prefix='/supplies', tags=['Supply'])
 
 
 
