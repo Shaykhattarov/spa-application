@@ -8,9 +8,7 @@ from app.repositories.stores import StoreRepository
 from app.schemas.stores import StoreScheme, StoreUpdateScheme
 
 
-
 class StoreService:
-
     repository: StoreRepository
 
     def __init__(self, repos: StoreRepository = Depends()):
@@ -22,52 +20,36 @@ class StoreService:
                 name=storeScheme.name,
                 address_id=storeScheme.address_id,
                 schedule_id=storeScheme.schedule_id,
-                scheme=storeScheme.scheme
+                scheme=storeScheme.scheme,
             )
         )
 
         if response is None:
-            return Response(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-    
+            return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         return Response(
             status_code=status.HTTP_201_CREATED,
-            headers={
-                "location": f"/{Store.__tablename__}/{response.id}" 
-            }
+            headers={"location": f"/{Store.__tablename__}/{response.id}"},
         )
-        
 
     def get(self, id: int) -> Response | JSONResponse:
-        response = self.repository.get(
-            Store(id=id)
-        )
+        response = self.repository.get(Store(id=id))
         if response is None:
-            return Response(
-                status_code=status.HTTP_404_NOT_FOUND
-            )
+            return Response(status_code=status.HTTP_404_NOT_FOUND)
         else:
             return JSONResponse(
-                status_code=status.HTTP_200_OK,
-                content=jsonable_encoder(response)
+                status_code=status.HTTP_200_OK, content=jsonable_encoder(response)
             )
-        
-    def page(
-            self,
-            skip: int,
-            limit: int
-    ) -> JSONResponse:
+
+    def page(self, skip: int, limit: int) -> JSONResponse:
         response: List[Store] = self.repository.page(skip, limit)
         content = {
             "skip": skip,
             "limit": limit,
             "count": len(response),
-            "data": response
+            "data": response,
         }
-        return JSONResponse(
-            content=jsonable_encoder(content)
-        )
+        return JSONResponse(content=jsonable_encoder(content))
 
     def put(self, storeScheme: StoreUpdateScheme) -> Response:
         response: Optional[Store] = self.repository.put(
@@ -76,23 +58,16 @@ class StoreService:
                 name=storeScheme.name,
                 address_id=storeScheme.address_id,
                 schedule_id=storeScheme.schedule_id,
-                scheme=storeScheme.scheme
+                scheme=storeScheme.scheme,
             )
         )
 
         if response is None:
-            return Response(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+            return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
-            return Response(
-                status_code=status.HTTP_204_NO_CONTENT
-            )
-        
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
 
     def delete(self, id: int):
         self.repository.delete(id)
 
-        return Response(
-            status_code=status.HTTP_204_NO_CONTENT
-        )
+        return Response(status_code=status.HTTP_204_NO_CONTENT)

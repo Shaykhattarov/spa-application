@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field
 from typing import Annotated
 
 
-
 class StoreScheduleScheme(BaseModel):
     day_of_week: str
     open_time: str
@@ -11,4 +10,3 @@ class StoreScheduleScheme(BaseModel):
 
 class StoreScheduleUpdateScheme(StoreScheduleScheme):
     id: int
-

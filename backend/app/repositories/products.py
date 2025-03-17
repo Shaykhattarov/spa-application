@@ -9,36 +9,35 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 class ProductRepository:
-
     session: Session
 
     def __init__(self, session: Session = Depends(get_session)):
         self.session = session
-    
+
     def create(self, product: Product) -> Product | None:
         self.session.add(product)
         try:
             self.session.commit()
         except SQLAlchemyError:
-            ... # logging
+            ...  # logging
             return None
         self.session.refresh(product)
         return product
 
     def get(self, product: Product) -> Product:
         return self.session.get(Product, product.id)
-    
+
     def page(self, skip: int, limit: int) -> List[Product]:
         statement = select(Product).offset(skip).limit(limit)
         return self.session.exec(statement).all()
-    
+
     def put(self, product: Product) -> Optional[Product]:
         statement = select(Product).where(Product.id == product.id)
         old_product: Optional[Product] = self.session.exec(statement).one()
 
         if old_product is None:
             return None
-        
+
         old_product.name = product.name
         old_product.category_id = product.category_id
         old_product.unit_id = product.unit_id
@@ -51,10 +50,10 @@ class ProductRepository:
         except SQLAlchemyError:
             ...
             return None
-        
+
         self.session.refresh(old_product)
         return old_product
-    
+
     def delete(self, id: int) -> None:
         statement = select(Product).where(Product.id == id)
         product: Optional[Product] = self.session.exec(statement).one()

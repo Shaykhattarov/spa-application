@@ -3,11 +3,10 @@ from app.core.database import get_session
 from sqlmodel import Session, select
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi import Depends, Query
-from typing import List
+from typing import List, Optional
 
 
 class ProductCategoryRepository:
-
     session: Session
 
     def __init__(self, session: Session = Depends(get_session)) -> None:
@@ -18,16 +17,21 @@ class ProductCategoryRepository:
         try:
             self.session.commit()
         except SQLAlchemyError:
-            ... # logging
+            ...  # logging
             return None
         self.session.refresh(product_category)
         return product_category
 
     def get(self, product_category: ProductCategory) -> ProductCategory:
         return self.session.get(ProductCategory, product_category.id)
-    
+
     def page(self, skip: int, limit: int) -> List[ProductCategory]:
         statement = select(ProductCategory).offset(skip).limit(limit)
         return self.session.exec(statement).all()
 
-
+    def delete(self, id: int) -> None:
+        statement = select(ProductCategory).where(ProductCategory.id == id)
+        response: Optional[ProductCategory] = self.session.exec(statement).one()
+        self.session.delete(response)
+        self.session.commit()
+        return None

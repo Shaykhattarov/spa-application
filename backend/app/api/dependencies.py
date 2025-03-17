@@ -13,8 +13,9 @@ def get_session():
     with Session(engine) as session:
         yield session
 
-#product_category_repository = ProductCategoryRepository()
-#product_category_service = ProductCategoryService(product_category_repository)
 
-#product_unit_repository = ProductUnitRepository()
-#product_unit_service = ProductUnitService(product_unit_repository)
+# product_category_repository = ProductCategoryRepository()
+# product_category_service = ProductCategoryService(product_category_repository)
+
+# product_unit_repository = ProductUnitRepository()
+# product_unit_service = ProductUnitService(product_unit_repository)

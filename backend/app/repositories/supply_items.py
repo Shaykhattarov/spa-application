@@ -8,9 +8,7 @@ from app.core.database import get_session
 from sqlalchemy.exc import SQLAlchemyError
 
 
-
 class SupplyItemRepository:
-
     session: Session
 
     def __init__(self, session: Session = Depends(get_session)):
@@ -20,15 +18,15 @@ class SupplyItemRepository:
         self.session.add(supplyItem)
         try:
             self.session.commit()
-        except SQLAlchemyError: 
-            ... # logging
+        except SQLAlchemyError:
+            ...  # logging
             return None
         self.session.refresh(supplyItem)
         return supplyItem
 
-    def get(self, supplyItem: SupplyItem): 
+    def get(self, supplyItem: SupplyItem):
         return self.session.get(SupplyItem, supplyItem.id)
-    
+
     def page(self, skip: int, limit: int):
         statement = select(SupplyItem).offset(skip).limit(limit)
         return self.session.exec(statement).all()
@@ -39,7 +37,7 @@ class SupplyItemRepository:
 
         if old_supply_item is None:
             return None
-        
+
         old_supply_item.supply_id = supplyItem.supply_id
         old_supply_item.product_id = supplyItem.product_id
         old_supply_item.quantity = supplyItem.quantity
@@ -50,10 +48,9 @@ class SupplyItemRepository:
             self.session.commit()
         except SQLAlchemyError:
             return None
-        
+
         self.session.refresh(old_supply_item)
         return old_supply_item
-
 
     def delete(self, id: int) -> None:
         statement = select(SupplyItem).where(SupplyItem.id == id)

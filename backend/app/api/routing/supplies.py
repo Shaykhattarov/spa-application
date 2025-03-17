@@ -8,29 +8,17 @@ from app.repositories.supplies import SupplyRepository
 from app.schemas.supplies import SupplyScheme, SupplyUpdateScheme
 
 
-
-router = APIRouter(prefix='/supplies', tags=['Supply'])
-
+router = APIRouter(prefix="/supplies", tags=["Supply"])
 
 
-@router.post(
-        '/', 
-        response_model=SupplyScheme,
-        status_code=status.HTTP_201_CREATED
-)
+@router.post("/", response_model=SupplyScheme, status_code=status.HTTP_201_CREATED)
 def create_supply(
-    supplyScheme: SupplyScheme,
-    supplyService: Annotated[SupplyService, Depends()]
+    supplyScheme: SupplyScheme, supplyService: Annotated[SupplyService, Depends()]
 ) -> Response:
     return supplyService.create(supplyScheme)
 
 
-
-@router.get(
-    "/",
-    response_model=List[SupplyScheme],
-    status_code=status.HTTP_200_OK
-)
+@router.get("/", response_model=List[SupplyScheme], status_code=status.HTTP_200_OK)
 def read_supplies(
     supplyService: Annotated[SupplyService, Depends()],
     skip: int = 0,
@@ -39,15 +27,8 @@ def read_supplies(
     return supplyService.page(skip, limit)
 
 
-
-@router.get(
-    "/{id}",
-    status_code=status.HTTP_200_OK
-)
-def get_supply(
-    id: int,
-    supplyService: Annotated[SupplyService, Depends()]
-):
+@router.get("/{id}", status_code=status.HTTP_200_OK)
+def get_supply(id: int, supplyService: Annotated[SupplyService, Depends()]):
     return supplyService.get(id)
 
 
@@ -56,17 +37,11 @@ def get_supply(
     response_model=SupplyUpdateScheme,
 )
 def put_supply(
-    supplyScheme: SupplyUpdateScheme,
-    supplyService: Annotated[SupplyService, Depends()]
+    supplyScheme: SupplyUpdateScheme, supplyService: Annotated[SupplyService, Depends()]
 ):
     return supplyService.put(supplyScheme)
 
 
-@router.delete(
-    "/{id}"
-)
-def delete_supply(
-    id: int,
-    supplyService: Annotated[SupplyService, Depends()]
-):
+@router.delete("/{id}")
+def delete_supply(id: int, supplyService: Annotated[SupplyService, Depends()]):
     return supplyService.delete(id)

@@ -7,29 +7,18 @@ from app.schemas.addresses import AddressesScheme, AddressesUpdateScheme
 from app.services.addresses import AddressesService
 
 
-
-router = APIRouter(prefix='/addresses', tags=['Address'])
-
+router = APIRouter(prefix="/addresses", tags=["Address"])
 
 
-@router.post(
-        '/', 
-        response_model=AddressesScheme,
-        status_code=status.HTTP_201_CREATED
-)
+@router.post("/", response_model=AddressesScheme, status_code=status.HTTP_201_CREATED)
 def create_address(
     addressScheme: AddressesScheme,
-    productService: Annotated[AddressesService, Depends()]
+    productService: Annotated[AddressesService, Depends()],
 ) -> Response:
     return productService.create(addressScheme)
 
 
-
-@router.get(
-    "/",
-    response_model=List[AddressesScheme],
-    status_code=status.HTTP_200_OK
-)
+@router.get("/", response_model=List[AddressesScheme], status_code=status.HTTP_200_OK)
 def read_addresses(
     addressesService: Annotated[AddressesService, Depends()],
     skip: int = 0,
@@ -38,15 +27,8 @@ def read_addresses(
     return addressesService.page(skip, limit)
 
 
-
-@router.get(
-    "/{id}",
-    status_code=status.HTTP_200_OK
-)
-def get_address(
-    id: int,
-    addressService: Annotated[AddressesService, Depends()]
-):
+@router.get("/{id}", status_code=status.HTTP_200_OK)
+def get_address(id: int, addressService: Annotated[AddressesService, Depends()]):
     return addressService.get(id)
 
 
@@ -56,16 +38,11 @@ def get_address(
 )
 def put_address(
     addressScheme: AddressesUpdateScheme,
-    addressService: Annotated[AddressesService, Depends()]
+    addressService: Annotated[AddressesService, Depends()],
 ):
     return addressService.put(addressScheme)
 
 
-@router.delete(
-    "/{id}"
-)
-def delete_address(
-    id: int,
-    addressService: Annotated[AddressesService, Depends()]
-):
+@router.delete("/{id}")
+def delete_address(id: int, addressService: Annotated[AddressesService, Depends()]):
     return addressService.delete(id)

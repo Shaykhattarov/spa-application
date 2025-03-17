@@ -2,7 +2,6 @@ from sqlmodel import SQLModel, Field
 from typing import Optional
 
 
-
 class StoreSchedule(SQLModel, table=True):
     __tablename__ = "store_schedules"
 

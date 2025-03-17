@@ -7,29 +7,18 @@ from app.schemas.employees import EmployeeScheme, EmployeeUpdateScheme
 from app.services.employees import EmployeeService
 
 
-
-router = APIRouter(prefix='/employees/positions', tags=['Employee Position'])
-
+router = APIRouter(prefix="/employees/positions", tags=["Employee Position"])
 
 
-@router.post(
-        '/', 
-        response_model=EmployeeScheme,
-        status_code=status.HTTP_201_CREATED
-)
+@router.post("/", response_model=EmployeeScheme, status_code=status.HTTP_201_CREATED)
 def create_employee(
     employeeScheme: EmployeeScheme,
-    employeeService: Annotated[EmployeeService, Depends()]
+    employeeService: Annotated[EmployeeService, Depends()],
 ) -> Response:
     return employeeService.create(employeeScheme)
 
 
-
-@router.get(
-    "/",
-    response_model=List[EmployeeScheme],
-    status_code=status.HTTP_200_OK
-)
+@router.get("/", response_model=List[EmployeeScheme], status_code=status.HTTP_200_OK)
 def read_employees(
     employeeService: Annotated[EmployeeService, Depends()],
     skip: int = 0,
@@ -38,15 +27,8 @@ def read_employees(
     return employeeService.page(skip, limit)
 
 
-
-@router.get(
-    "/{id}",
-    status_code=status.HTTP_200_OK
-)
-def get_employee(
-    id: int,
-    employeeService: Annotated[EmployeeService, Depends()]
-):
+@router.get("/{id}", status_code=status.HTTP_200_OK)
+def get_employee(id: int, employeeService: Annotated[EmployeeService, Depends()]):
     return employeeService.get(id)
 
 
@@ -56,16 +38,11 @@ def get_employee(
 )
 def put_employee(
     employeeScheme: EmployeeUpdateScheme,
-    employeeService: Annotated[EmployeeService, Depends()]
+    employeeService: Annotated[EmployeeService, Depends()],
 ):
     return employeeService.put(employeeScheme)
 
 
-@router.delete(
-    "/{id}"
-)
-def delete_employee(
-    id: int,
-    employeeService: Annotated[EmployeeService, Depends()]
-):
+@router.delete("/{id}")
+def delete_employee(id: int, employeeService: Annotated[EmployeeService, Depends()]):
     return employeeService.delete(id)

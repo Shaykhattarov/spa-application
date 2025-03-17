@@ -6,9 +6,7 @@ from typing import List
 from sqlalchemy.exc import SQLAlchemyError
 
 
-
 class ProductUnitRepository:
-
     session: Session
 
     def __init__(self, session: Session = Depends(get_session)) -> None:
@@ -19,14 +17,14 @@ class ProductUnitRepository:
         try:
             self.session.commit()
         except SQLAlchemyError:
-            ... # logging
+            ...  # logging
             return None
         self.session.refresh(product_unit)
         return product_unit
 
     def get(self, product_unit: ProductUnit) -> ProductUnit:
         return self.session.get(ProductUnit, product_unit.id)
-    
+
     def page(self, skip: int, limit: int) -> List[ProductUnit]:
         statement = select(ProductUnit).offset(skip).limit(limit)
         return self.session.exec(statement).all()

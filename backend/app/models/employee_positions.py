@@ -2,7 +2,6 @@ from sqlmodel import SQLModel, Field
 from typing import Optional
 
 
-
 class EmployeePosition(SQLModel, table=True):
     __tablename__ = "employee_positions"
 

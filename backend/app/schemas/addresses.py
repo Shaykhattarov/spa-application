@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field
 from typing import Annotated
 
 
-
 class AddressesScheme(BaseModel):
     city: str
     street: str
@@ -12,4 +11,3 @@ class AddressesScheme(BaseModel):
 
 class AddressesUpdateScheme(AddressesScheme):
     id: int
-

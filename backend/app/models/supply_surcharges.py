@@ -2,7 +2,6 @@ from sqlmodel import SQLModel, Field
 from decimal import Decimal
 
 
-
 class SupplySurcharge(SQLModel, table=True):
     __tablename__ = "supply_surcharges"
 

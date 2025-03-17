@@ -9,7 +9,6 @@ from app.repositories.supply_items import SupplyItemRepository
 
 
 class SupplyItemService:
-
     repository: SupplyItemRepository
 
     def __init__(self, repo: SupplyItemRepository = Depends()):
@@ -26,47 +25,31 @@ class SupplyItemService:
         )
 
         if response is None:
-            return Response(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-    
+            return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         return Response(
             status_code=status.HTTP_201_CREATED,
-            headers={
-                "location": f"/{SupplyItem.__tablename__}/{response.id}" 
-            }
+            headers={"location": f"/{SupplyItem.__tablename__}/{response.id}"},
         )
-        
 
     def get(self, id: int) -> Response | JSONResponse:
-        response = self.repository.get(
-            SupplyItem(id=id)
-        )
+        response = self.repository.get(SupplyItem(id=id))
         if response is None:
-            return Response(
-                status_code=status.HTTP_404_NOT_FOUND
-            )
+            return Response(status_code=status.HTTP_404_NOT_FOUND)
         else:
             return JSONResponse(
-                status_code=status.HTTP_200_OK,
-                content=jsonable_encoder(response)
+                status_code=status.HTTP_200_OK, content=jsonable_encoder(response)
             )
-        
-    def page(
-            self,
-            skip: int,
-            limit: int
-    ) -> JSONResponse:
+
+    def page(self, skip: int, limit: int) -> JSONResponse:
         response: List[SupplyItem] = self.repository.page(skip, limit)
         content = {
             "skip": skip,
             "limit": limit,
             "count": len(response),
-            "data": response
+            "data": response,
         }
-        return JSONResponse(
-            content=jsonable_encoder(content)
-        )
+        return JSONResponse(content=jsonable_encoder(content))
 
     def put(self, supplyItemUpdateScheme: SupplyItemUpdateScheme) -> Response:
         response: Optional[SupplyItem] = self.repository.put(
@@ -80,20 +63,11 @@ class SupplyItemService:
         )
 
         if response is None:
-            return Response(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+            return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
-            return Response(
-                status_code=status.HTTP_204_NO_CONTENT
-            )
-        
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
 
     def delete(self, id: int):
         self.repository.delete(id)
 
-        return Response(
-            status_code=status.HTTP_204_NO_CONTENT
-        )
-
-    
+        return Response(status_code=status.HTTP_204_NO_CONTENT)

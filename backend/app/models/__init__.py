@@ -10,3 +10,4 @@ from .stores import Store
 from .store_schedules import StoreSchedule
 from .employees import Employee
 from .employee_positions import EmployeePosition
+from .administrators import Administrator

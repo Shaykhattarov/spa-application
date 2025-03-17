@@ -12,5 +12,9 @@ class Employee(SQLModel, table=True):
     old: int = Field(default=0, max_digits=3)
     phone: str
     email: str
-    store_id: Optional[int] = Field(default=None, foreign_key="stores.id", ondelete="RESTRICT")
-    position_id: Optional[int] = Field(default=None, foreign_key="employee_positions.id", ondelete="RESTRICT")
+    store_id: Optional[int] = Field(
+        default=None, foreign_key="stores.id", ondelete="RESTRICT"
+    )
+    position_id: Optional[int] = Field(
+        default=None, foreign_key="employee_positions.id", ondelete="RESTRICT"
+    )

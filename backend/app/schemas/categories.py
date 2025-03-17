@@ -4,11 +4,14 @@ from typing import Annotated
 
 class ProductCategoryScheme(BaseModel):
     name: Annotated[
-        str, 
-        Field(min_length=2, max_length=60, description="Название категории должно быть от 2 до 60 символов")
+        str,
+        Field(
+            min_length=2,
+            max_length=60,
+            description="Название категории должно быть от 2 до 60 символов",
+        ),
     ]
 
 
 class ProductCategoryUpdateScheme(ProductCategoryScheme):
     id: int
-

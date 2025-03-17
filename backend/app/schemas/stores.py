@@ -3,7 +3,6 @@ from typing import Annotated
 from decimal import Decimal
 
 
-
 class StoreScheme(BaseModel):
     name: str
     address_id: int
