@@ -37,5 +37,5 @@ def get_category(
 
 
 @router.delete("/{id}")
-def delete_category(id: int, categoryService: ProductCategoryService):
-    return ProductCategoryService.delete(id)
+def delete_category(id: int, categoryService: Annotated[ProductCategoryService, Depends()]):
+    return categoryService.delete(id)

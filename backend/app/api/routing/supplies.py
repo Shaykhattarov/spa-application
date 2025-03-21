@@ -1,10 +1,9 @@
 from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, status
-from starlette.responses import Response, JSONResponse
+from starlette.responses import Response
 
 from app.services.supplies import SupplyService
-from app.repositories.supplies import SupplyRepository
 from app.schemas.supplies import SupplyScheme, SupplyUpdateScheme
 
 

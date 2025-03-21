@@ -1,5 +1,5 @@
 from fastapi import Depends, status
-from typing import Annotated, Optional, List
+from typing import Optional, List
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import Response, JSONResponse
 

@@ -1,6 +1,4 @@
-from pydantic import BaseModel, Field
-from typing import Annotated
-from decimal import Decimal
+from pydantic import BaseModel
 
 
 class StoreScheme(BaseModel):

@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Field
-from typing import Optional, Annotated
+from typing import Annotated
 
 
 class Administrator(SQLModel, table=True):
@@ -10,4 +10,5 @@ class Administrator(SQLModel, table=True):
     name: str
     surname: str
 
+    login: Annotated[str, Field(min_length=2)]
     password: Annotated[str, Field(min_length=8, max_length=2056)]

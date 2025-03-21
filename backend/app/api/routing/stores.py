@@ -1,7 +1,7 @@
 from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, status
-from starlette.responses import Response, JSONResponse
+from starlette.responses import Response
 
 from app.schemas.stores import StoreScheme, StoreUpdateScheme
 from app.services.stores import StoreService

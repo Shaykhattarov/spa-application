@@ -2,7 +2,7 @@ from app.models.categories import ProductCategory
 from app.core.database import get_session
 from sqlmodel import Session, select
 from sqlalchemy.exc import SQLAlchemyError
-from fastapi import Depends, Query
+from fastapi import Depends
 from typing import List, Optional
 
 
