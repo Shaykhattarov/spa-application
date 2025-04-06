@@ -1,0 +1,32 @@
+
+
+:root {
+    font-family: 'Lexend Deca';
+    line-height: 1.5;
+    font-weight: 400;
+  
+    --color-primary: rgb(97, 209, 187);
+    --color-shadow-primary: rgba(97, 209, 187, 0.3);
+    color: var(--color-primary);
+    
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+div.container {
+    width: 85%;
+    height: auto;
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+}
