@@ -1,24 +1,31 @@
-import './Header.css';
+import './index.css';
 
 import logotype from '../../assets/logotype.svg';
 import burger from '../../assets/burger-icon.svg';
 import avatar from '../../assets/avatar-icon.svg';
 
+import { Link } from 'react-router-dom';
+
+
+
 function Header() {
+
+
+
     return (
         <>
             <div className="header-wrapper">
                 <div className="header-elements">
-                    <div className="header-logotype">
+                    <Link to="/" className="header-logotype">
                         <img src={logotype}/>
-                    </div>
+                    </Link>
                     <div className="header-navigation">
-                        <div className="header-burger-menu">
+                        <button className="header-burger-menu">
                             <img src={burger}/>
-                        </div>
-                        <div className="header-profile">
+                        </button>
+                        <Link to="login" className="header-profile">
                             <img src={avatar} />
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -26,4 +33,4 @@ function Header() {
     )
 }
 
-export default Header
+export default Header;

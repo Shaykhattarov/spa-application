@@ -1,0 +1,107 @@
+
+
+
+.login-form-wrapper {
+    width: 900px;
+    height: 520px;
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 160px;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 50px;
+    border-color: var(--color-primary);
+}
+
+.login-form-inner {
+    width: 80%;
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-form-header {
+    height: 50px;
+
+    font-size: 40px;
+    font-family: 'Roboto';
+    font-weight: 700;
+
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+form.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+form.login-form input {
+    width: 80%;
+    height: 40px;
+
+    margin-top: 40px;
+
+    color: white;
+    font-size: 18px;
+    font-family: 'Roboto';
+    font-weight: 600;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 10px;
+    background-color: rgba(97, 209, 187, 0.7);
+
+    outline: none;
+
+    padding-left: 40px;
+}
+
+form.login-form input:focus {
+    outline: 1px solid var(--color-primary);
+}
+
+.registration-link {
+    color: var(--color-primary);
+    font-size: 22px;
+    font-weight: 600;
+    font-family: 'Roboto';
+    
+    margin-top: 30px;
+
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-decoration-thickness: 1px;
+}
+
+.registration-link:hover {
+    font-weight: 700;
+    text-decoration-color: var(--color-primary);
+    text-decoration-thickness: 2px;
+}
+
+#submit-button {
+    width: 60%;
+    height: 50px;
+
+    padding: 0;
+    margin-top: 20px;
+
+    color: white;
+    font-size: 18px;
+    font-family: 'Roboto';
+    font-weight: 600;
+    
+    border: var(--color-primary);
+    border-radius: 50px;
+    background-color: var(--color-primary);
+
+    cursor: pointer;
+}

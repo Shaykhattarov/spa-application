@@ -1,6 +1,11 @@
 @font-face {
   font-family: 'Lexend Deca';
-  src: local('Lexend Deca'), url('./fonts/lexend_deca/LexendDeca-VariableFont_wght.ttf');
+  src: local('Lexend Deca'), url('./assets/fonts/lexend_deca/LexendDeca-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), url('./assets/fonts/roboto/Roboto-VariableFont_wdth_wght.ttf');
 }
 
 :root {
@@ -10,7 +15,6 @@
 
   --color-primary: rgb(97, 209, 187);
   --color-shadow-primary: rgba(97, 209, 187, 0.3);
-  /* color-scheme: light green; */
   color: var(--color-primary);
   
   font-synthesis: none;

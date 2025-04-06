@@ -1,0 +1,51 @@
+
+.home-wrapper {
+    width: 100%;
+    height: fit-content;
+
+    position: relative;
+    margin-top: 180px;
+}
+
+.home-elements {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.home-huge-text {
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 94px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    height: 125px;
+    margin-bottom: 20px;
+}
+
+.home-normal-text {
+    font-family: 'Roboto';
+    font-size: 62px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    height: 100px;
+    margin-bottom: 70px;
+}
+
+.home-icons-wrapper {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-around;
+}
+
