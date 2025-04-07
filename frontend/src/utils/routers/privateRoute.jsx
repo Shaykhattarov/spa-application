@@ -2,11 +2,11 @@ import { Navigate, Outlet } from "react-router-dom";
 
 
 
-function PrivateRoute () {
+function PrivateRoute() {
     const hasToken = true;
-    
+
     return (
-        hasToken ? <Outlet /> : <Navigate to="registration" />
+        hasToken ? <Outlet /> : <Navigate to="/registration" />
     );
 }
 
