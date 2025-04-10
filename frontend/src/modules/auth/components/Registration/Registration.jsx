@@ -1,12 +1,17 @@
 
-import { Container, Paper, Box, TextField, Link , Typography, Button } from '@mui/material';
+import { Container, Paper, Box, TextField, Typography, Button } from '@mui/material';
 
 
 
-function Registration() {
-    
-    const handleSubmit = (event) => {
-        console.log(event.target);
+function Registration(props) {
+    const { navigate, register, errors, loading } = props;
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const userData = {
+
+        };
     };
 
     return (
@@ -59,6 +64,8 @@ function Registration() {
                             }}
                         >
                             <TextField 
+                                error={!!errors.name}
+                                fullWidth={true}
                                 type="text"
                                 label='Имя'
                                 id='name'
@@ -66,11 +73,13 @@ function Registration() {
                                 sx={{
                                     marginBottom: '30px'
                                 }}
-
-                                fullWidth
+                                helperText={errors.name ? `${errors.name.message}`: ''}
+                                {...register('name')}
                             />
 
                             <TextField 
+                                error={!!errors.name}
+                                fullWidth={true}
                                 type="text"
                                 label='Фамилия'
                                 id='surname'
@@ -78,11 +87,13 @@ function Registration() {
                                 sx={{
                                     marginBottom: '30px'
                                 }}
-
-                                fullWidth
+                                helperText={errors.name ? `${errors.name.message}`: ''}
+                                {...register('surname')}
                             />
 
                             <TextField 
+                                error={!!errors.name}
+                                fullWidth={true}
                                 type="email"
                                 label='Логин'
                                 id='login'
@@ -90,19 +101,21 @@ function Registration() {
                                 sx={{
                                     marginBottom: '30px'
                                 }}
-
-                                fullWidth
+                                helperText={errors.name ? `${errors.name.message}`: ''}
+                                {...register('login')}
                             />
 
                             <TextField 
+                                error={!!errors.name}
+                                fullWidth={true}
                                 type="password"
                                 label='Пароль'
                                 variant="outlined"
                                 sx={{
                                     marginBottom: '40px'
                                 }}
-
-                                fullWidth
+                                helperText={errors.name ? `${errors.name.message}`: ''}
+                                {...register('password')}
                             />
                             
                             <Button
@@ -114,6 +127,8 @@ function Registration() {
                                     backgroundColor: '#61D1BB',
                                     alignSelf: 'center',
                                 }}
+                                onClick={() => setLoading(true)}
+                                loading={loading}
                             >
                                 Отправить
                             </Button>
